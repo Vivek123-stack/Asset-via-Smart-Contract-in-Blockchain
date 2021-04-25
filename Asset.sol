@@ -1,23 +1,26 @@
-pragma solidity >=0.4.0 <0.9.0;
+//Importing ERC1155 standards into our contracts
+import "@openzeppelin/contracts/token/ERC1155/ERC1155.sol";
 
     //Creation of the contract
-    contract AssetContract{
+    contract assetContract is ERC1155{
+        
     //Declaration of the variables
     address owner;
-    uint public assetcount = 0;
+    uint public assetCount = 0;
     
+    //Creation of the event
     event Purchase(address indexed _buyer,uint _amount);
     
     //Creation of the modifier
     modifier onlyOwner{
         
         //Require statement
-        require(msg.sender == owner ,"Only Owner can create and deploy this Asset");
+        require(msg.sender == owner ,"Only Owner can create and deploy this Function");
         _;
     }
     
     //Creation of the constructor
-    constructor() public{
+    constructor() public ERC1155(""){
         owner = msg.sender;
     }
     
@@ -25,9 +28,6 @@ pragma solidity >=0.4.0 <0.9.0;
     mapping(address => bool)public Verified_Owner;
     mapping(address => bool)public Verified_Transaction;
     mapping(uint => assetcreation)public AssetCreation;
-    
-    //Creation of the array
-    assettransfer[] public AssetTransfer;
     
     //Creation of the structure
     struct assetcreation{
@@ -37,29 +37,17 @@ pragma solidity >=0.4.0 <0.9.0;
         string _CreaterName;
     }
     
-    struct assettransfer{
-        
-        address _from;
-        address _to;
-    }
-    
     //Defining of the function
-    function assetcreate(string memory _AssetName, string memory _CreaterName)public payable onlyOwner{
+    function assetCreate(string memory _AssetName, string memory _CreaterName)public onlyOwner{
         
         //Defining of the mapping
-        AssetCreation[assetcount]=assetcreation(assetcount,_AssetName,_CreaterName);
+        AssetCreation[assetCount]=assetcreation(assetCount,_AssetName,_CreaterName);
         
         //Incrementing assetcount by 1
-        assetcount += 1;
+        assetCount += 1;
     }
     
-    function assettransfers(address _from,address _to)public{
-    
-        //Defining of the array
-        AssetTransfer.push(assettransfer(_from,_to));
-    }
-    
-    function verifyowner()public returns(bool){
+    function verifyOwner()public returns(bool){
         //Require statement for verifying that the owner and transaction cannot be done before
         require(Verified_Owner[msg.sender]=true);
         
@@ -67,11 +55,10 @@ pragma solidity >=0.4.0 <0.9.0;
         //require(!Verified_Owner[msg.sender]);
     }
     
-    function verifytransactions()public returns(bool){
+    function verifyTransactions()public returns(bool){
         
         //Require statement for verifying that the owner and transaction cannot be done before
         require(Verified_Transaction[msg.sender]=true);
     }
     
-  
 }
