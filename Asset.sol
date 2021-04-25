@@ -35,13 +35,15 @@ import "@openzeppelin/contracts/token/ERC1155/ERC1155.sol";
         uint _id;
         string _AssetName;
         string _CreaterName;
+        string _Discription_of_the_asset;
+        string _Category_of_Asset;
     }
     
     //Defining of the function
-    function assetCreate(string memory _AssetName, string memory _CreaterName)public onlyOwner{
+    function assetCreate(string memory _AssetName, string memory _CreaterName,string memory _Discription_of_the_asset,string memory _Category_of_Asset)public onlyOwner{
         
         //Defining of the mapping
-        AssetCreation[assetCount]=assetcreation(assetCount,_AssetName,_CreaterName);
+        AssetCreation[assetCount]=assetcreation(assetCount,_AssetName,_CreaterName,_Discription_of_the_asset,_Category_of_Asset);
         
         //Incrementing assetcount by 1
         assetCount += 1;
