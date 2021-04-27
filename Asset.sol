@@ -1,8 +1,8 @@
 //Importing ERC1155 standards into our contracts
-import "@openzeppelin/contracts/token/ERC1155/ERC1155.sol";
+import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
 
     //Creation of the contract
-    contract assetContract is ERC1155{
+    contract assetContract is ERC721{
         
     //Declaration of the variables
     address owner;
@@ -20,7 +20,7 @@ import "@openzeppelin/contracts/token/ERC1155/ERC1155.sol";
     }
     
     //Creation of the constructor
-    constructor() public ERC1155(""){
+    constructor() public ERC721("",""){
         owner = msg.sender;
     }
     
